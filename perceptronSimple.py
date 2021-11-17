@@ -24,8 +24,8 @@ def perceptronSimple(df):
 
     # Condiciones de corte
     epocas = 0
-    tasaAcierto = 1 # Promedio de errores (inicializamos en 1 para que no joda)
-    tolerancia = 95 # El porcentaje de errores que tuvo en una epoca debe ser menor al 5%
+    tasaAcierto = 1 
+    tolerancia = 95 
     maxEpocas = 100
 
     # Armamos un historial
@@ -50,7 +50,6 @@ def perceptronSimple(df):
             historialW[j] = W
             j = j+ 1
 
-        # Comparo las salidas y calculo la cantidad de errores en una epoca
         y = [] # Reinicio las salidas calculadas
         acierto = 0
         for i in range(0, tamX): # Cantidad de pruebas
