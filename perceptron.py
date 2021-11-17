@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 
 def perceptronSimple(df):
 
@@ -25,8 +24,8 @@ def perceptronSimple(df):
 
     # Condiciones de corte
     epocas = 0
-    promError = 1 # Promedio de errores (inicializamos en 1 para que no joda)
-    umbralError = 0.05 # El porcentaje de errores que tuvo en una epoca debe ser menor al 5%
+    tasaAcierto = 1 # Promedio de errores (inicializamos en 1 para que no joda)
+    tolerancia = 95 # El porcentaje de errores que tuvo en una epoca debe ser menor al 5%
     maxEpocas = 100
 
     # Armamos un historial
@@ -35,7 +34,7 @@ def perceptronSimple(df):
     j = 1 # Contador del historialW
 
     # Recorro todas las pruebas
-    while (epocas < maxEpocas and promError > umbralError): # Si antes de haber completado las epocas, el error es ya es muy chico, lo corto
+    while (epocas < maxEpocas and tasaAcierto < tolerancia):
         for i in range(0, tamX): # Cantidad de pruebas
             yaux = np.dot(W, X[i][:])   #Calculo el y[i]
             # Funcion signo - función de activación
@@ -53,26 +52,24 @@ def perceptronSimple(df):
 
         # Comparo las salidas y calculo la cantidad de errores en una epoca
         y = [] # Reinicio las salidas calculadas
-        error = 0
+        acierto = 0
         for i in range(0, tamX): # Cantidad de pruebas
             yaux = np.dot(W, X[i][:])
             if yaux > 0:
                 y.insert(i, 1)
             else:
                 y.insert(i, -1)
-            if y[i] != yd[i]:
-                error = error + 1
+            if y[i] == yd[i]:
+                acierto+=1
 
-        promError = error / tamX
+        tasaAcierto = (acierto / tamX)*100
 
         # Sumar 1 epoca
         epocas = epocas + 1
-        print("epocas:", epocas, " - promerror: ", promError)
+        print("epocas:", epocas, " - Tasa de acierto: ", tasaAcierto)
 
         # reinicio salidas por época
         y = []
 
-    # print(W)
     historialW = historialW[0:j]
-    return historialW, promError
-    # El promError lo usamos para comprararlo con el promedio de error de test
+    return historialW, tasaAcierto
