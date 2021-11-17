@@ -12,7 +12,7 @@ def test(dfTest,W):
 
     #Comparo las salidas y calculo la cantidad de errores en una epoca
     y = []
-    error = 0
+    acierto = 0
     for i in range(0, tamxTest):
         yaux = np.dot(W, xTest[i][:])
         if yaux > 0:
@@ -20,7 +20,7 @@ def test(dfTest,W):
         else:
             y.insert(i, -1)
         if y[i] != ydTest[i]:
-            error = error + 1
+            acierto += 1
 
-    promError = error / tamxTest
-    return promError
+    tasaAcierto = (acierto / tamxTest)*100
+    return tasaAcierto
