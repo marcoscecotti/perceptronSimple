@@ -1,0 +1,20 @@
+import pandas as pd
+from perceptronSimple import perceptronSimple
+from test import test
+from graficar import graficar
+
+# Entrenamos el perceptron con el OR
+df = pd.read_csv('icgtp1datos/OR_trn.csv', header=None)
+historialWTrain, tasaAciertoTrain = perceptronSimple(df)
+
+# Testeamos el perceptron con el OR
+dfTest = pd.read_csv('icgtp1datos/OR_tst.csv', header=None)
+tamAux = len(historialWTrain)
+tasaAciertoTest = test(dfTest, historialWTrain[tamAux-1][:]) # Pasamos el df y el último W
+
+##Comparamos los errores promedios -> El error promedio del test deberia ser bajo para poder decir que se cumple la generalizacion
+print("Tasa de acierto de entrenamiento", tasaAciertoTrain)
+print("Tasa de acierto de test", tasaAciertoTest)
+
+#Grafica del OR
+graficar(df, "OR")
