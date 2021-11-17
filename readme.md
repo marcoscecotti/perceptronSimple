@@ -1,3 +1,5 @@
+# Perceptrón Simple
+
 Implementación de un perceptrón simple con un número variable de entradas. <br /> Se hace uso de librerías tales como Pandas, Numpy y MatplotLib.<br />
 
 Se incluye un dataset del problema del OR, y un script que realiza un entrenamiento y testeo con el perceptrón. 
